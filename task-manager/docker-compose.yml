@@ -1,5 +1,24 @@
 version: '3.8'
+
 services:
+  backend:
+    build: .
+    container_name: nest-backend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: user
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: task_db
+      NODE_ENV: production
+    restart: always
+
   db:
     image: postgres:15
     container_name: postgres-db
